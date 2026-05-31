@@ -3,6 +3,8 @@ name: Reusable Security Audit
 on:
   workflow_call:
 
+permissions: {}
+
 jobs:
   audit:
     name: Dependency vulnerability audit
@@ -15,5 +17,5 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           persist-credentials: false
-      - uses: lanlada/.github/.github/common-actions/bootstrap@main
+      - uses: lanlada/.github/.github/common-actions/bootstrap@v1
       - run: pnpm audit:deps

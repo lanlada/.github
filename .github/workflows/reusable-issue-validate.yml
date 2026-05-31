@@ -3,6 +3,8 @@ name: Reusable Issue Validation
 on:
   workflow_call:
 
+permissions: {}
+
 jobs:
   title:
     name: Validate issue title against Hybrid Convention
@@ -16,7 +18,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: lanlada/.github
-          ref: main
+          ref: v1
           persist-credentials: false
       - name: Validate title shape and forbidden tokens
         id: validate

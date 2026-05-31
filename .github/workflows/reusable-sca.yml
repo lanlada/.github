@@ -3,6 +3,8 @@ name: Reusable Software Composition Analysis
 on:
   workflow_call:
 
+permissions: {}
+
 jobs:
   scan:
     name: OSV-Scanner dependency scan

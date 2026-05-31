@@ -3,6 +3,8 @@ name: Reusable Stale
 on:
   workflow_call:
 
+permissions: {}
+
 jobs:
   stale:
     name: Mark stale issues and PRs
