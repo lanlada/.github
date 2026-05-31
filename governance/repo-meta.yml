@@ -1,0 +1,16 @@
+repos:
+  - name: lanlada-platform-backoffice-web
+    description: "Internal platform backoffice web app for the Lanlada multi-tenant booking SaaS."
+    topics: [lanlada, platform, backoffice, nextjs, typescript]
+  - name: lanlada-platform-api
+    description: "Backend API for the Lanlada multi-tenant booking SaaS: booking, availability, billing, notifications, and merchant operations."
+    topics: [lanlada, platform, api, nestjs, typescript]
+  - name: lanlada-tenant-booking-web
+    description: "Tenant storefront booking web app for the Lanlada platform."
+    topics: [lanlada, tenant, booking, nextjs, typescript]
+  - name: lanlada-tenant-backoffice-web
+    description: "Tenant backoffice web app for the Lanlada platform."
+    topics: [lanlada, tenant, backoffice, nextjs, typescript]
+  - name: lanlada-platform-official-web
+    description: "Official marketing website for the Lanlada platform."
+    topics: [lanlada, platform, official, nextjs, typescript]
