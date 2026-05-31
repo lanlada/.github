@@ -1,0 +1,10 @@
+labels:
+  - name: "area:api"
+    color: "bfdadc"
+    description: "API surface and controllers"
+  - name: "area:modules"
+    color: "bfdadc"
+    description: "Feature modules"
+  - name: "area:migrations"
+    color: "bfdadc"
+    description: "Database migrations"

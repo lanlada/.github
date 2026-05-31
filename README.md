@@ -34,7 +34,7 @@ Every label belongs to exactly one prefixed category: `type:`, `priority:`, `sta
 5. Rules distribution and repository metadata sync.
 6. Scaffolding the empty repositories.
 
-The design and implementation plan for each sub-project live under `governance/specs/` and `governance/plans/`.
+Design notes and implementation plans for each sub-project are kept as working artifacts outside this repository; only the resulting deliverables are tracked here.
 
 ## Constraints
 
