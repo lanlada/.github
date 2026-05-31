@@ -39,10 +39,9 @@ body:
     id: target_user
     attributes:
       label: Target User
-      description: The persona, role, or tier the feature serves. Be specific.
+      description: The persona or role the feature serves. Be specific.
       placeholder: |
         - Persona: tenant OWNER managing more than one tenant
-        - Tier: any paid plan
         - Frequency: daily for power users, weekly for the long tail
     validations:
       required: true
@@ -55,7 +54,7 @@ body:
       placeholder: |
         - Tenant outcome: one click to switch tenant instead of three clicks and a re-authentication
         - Business outcome: reduced "stuck on the wrong tenant" support tickets
-        - Rationale: the multi-tenant tier launch expects multi-tenant ergonomics
+        - Rationale: multi-tenant owners expect ergonomic context switching
     validations:
       required: true
 
@@ -95,7 +94,7 @@ body:
       placeholder: |
         - [ ] Given a tenant owner, when they select another tenant in the header, then the active context switches without re-authentication
         - [ ] Feature is reachable from the header on every authenticated page
-        - [ ] Free-plan tenants see the upgrade prompt instead of the control
+        - [ ] Tenants without access to the feature see a clear empty state instead of the control
     validations:
       required: true
 

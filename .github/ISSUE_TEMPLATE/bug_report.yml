@@ -64,7 +64,7 @@ body:
       label: Customer Impact
       description: Who is affected, the magnitude of the impact, and the business consequence. Support and product owners use this section to determine communication and priority.
       placeholder: |
-        - Affected tenants: identifiers, roles, or tiers (for example, "all OWNER users" or "tenants on the Free plan")
+        - Affected tenants: identifiers or roles (for example, "all owners" or "a single tenant")
         - User-facing symptom: the observable result (error toast, missing data, broken redirect, blank page)
         - Business consequence: lost bookings, blocked signup, support tickets opened, revenue at risk
     validations:
