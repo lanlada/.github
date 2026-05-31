@@ -1,5 +1,3 @@
 # lanlada
 
-The lanlada platform: a backoffice and tenant-facing product suite built on Next.js and NestJS.
-
-Repositories in this organization follow a single governance standard. The standard, its contracts, and the label taxonomy are documented in this organization's `.github` repository.
+The lanlada platform — a multi-tenant booking SaaS. The product suite spans a platform backoffice, tenant storefronts and operations, and the public website, built on Next.js and NestJS.
