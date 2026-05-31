@@ -1,0 +1,156 @@
+name: Task / Epic
+description: Engineering task or epic
+title: "<type>(<scope>): <verb-first outcome>"
+labels: ["type:chore"]
+assignees: ["joetakara", "nextfridaydeveloper"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Title style — Hybrid Convention
+
+        Every title uses the conventional-commit shape: `<type>(<scope>): <verb-first outcome>`. Issue titles share that shape with pull request and commit titles. Length is relaxed for issue titles. Replace the default `type:chore` label with the type that matches the work.
+
+        Examples:
+
+        - `feat(onboarding): add a tenant onboarding checklist`
+        - `refactor(billing): extract tenant billing state validation`
+        - `ci(github): validate pull request title issue references`
+        - `docs(governance): document the tenant data retention policy`
+
+        Prohibited in any title:
+
+        - `+` as shorthand. Use `and` or commas.
+        - User-story prose. Place that content in the body fields.
+
+        ## Voice and structure
+
+        The body uses the organization's formal section vocabulary. Stakeholders outside engineering read this artifact during audits. Avoid jargon. Define acronyms on first use.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences. State what the work is and what end state it produces. Plain language. No file paths in this section.
+      placeholder: "Introduce a tenant onboarding checklist so that every new tenant completes the same required setup steps before going live."
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: Background
+      description: Prior state and the technical or business context that informs this work. Link related issues, specifications, or prior decisions. The Summary above should already cover what the work is; this section explains why the work exists.
+      placeholder: |
+        New tenants currently complete onboarding through scattered, undocumented steps, and required configuration is often missed. This issue addresses that pattern before more tenants onboard against it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: The outcome the work delivers. A single declarative sentence.
+      placeholder: "Every new tenant follows one onboarding checklist, and required setup steps are enforced before the tenant is marked active."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: estimate
+    attributes:
+      label: Estimate
+      description: T-shirt size. The size sets expectations and is not a deadline.
+      options:
+        - XS (under two hours)
+        - S (half a day)
+        - M (one day)
+        - L (two to three days)
+        - XL (one week or longer)
+    validations:
+      required: true
+
+  - type: textarea
+    id: stakeholders
+    attributes:
+      label: Stakeholders
+      description: Named roles or individuals involved. Avoid the term "team" without qualification.
+      placeholder: |
+        - Affected tenants:
+        - Engineering reviewer:
+        - Quality reviewer:
+        - Product owner:
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: External or internal work that must complete before this work begins.
+      placeholder: |
+        - Blocked by: #N
+        - External dependency:
+        - None — the work can begin immediately
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: A checklist of the work included. Group by area where it aids review (Code, Infrastructure, Documentation).
+      placeholder: |
+        - [ ] item one
+        - [ ] item two
+    validations:
+      required: true
+
+  - type: textarea
+    id: exclusions
+    attributes:
+      label: Exclusions
+      description: Work deliberately omitted. Tracked separately where applicable.
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Verifiable conditions in Given / When / Then form. Include a Verification Procedure subsection with the exact commands used to verify each criterion.
+      placeholder: |
+        - Given a new tenant
+        - When onboarding starts
+        - Then the checklist lists every required setup step and blocks activation until each is complete
+
+        Verification Procedure:
+
+        ```
+        <exact commands used to verify each criterion, with expected output>
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: definition_of_done
+    attributes:
+      label: Definition of Done
+      description: A measurable checklist that converts this issue from in-progress to complete. Acceptance Criteria describes behaviour; Definition of Done describes delivery.
+      placeholder: |
+        - [ ] All Acceptance Criteria are satisfied
+        - [ ] Tests are added or updated where applicable
+        - [ ] Documentation is updated (rules, README, runbook)
+        - [ ] The pull request merges to `dev` and the target environment reflects the change
+        - [ ] This issue closes via the pull request's per-line `Closes #N`
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Specifications, related issues, and external documentation.
+      placeholder: |
+        - Related: #N
+        - External: https://...
+        - Design: https://...
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks
+      description: Known risks with mitigation or ownership notes.

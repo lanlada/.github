@@ -1,0 +1,118 @@
+name: Feature Request
+description: Tenant-facing capability or enhancement
+title: "feat(<scope>): <verb-first outcome>"
+labels: ["type:feat"]
+assignees: ["joetakara", "nextfridaydeveloper"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Title style — Hybrid Convention
+
+        Use the conventional-commit shape: `feat(<scope>): <verb-first outcome>`. Issue titles share that shape with pull request and commit titles. Length is relaxed for issue titles.
+
+        Examples:
+
+        - `feat(billing): allow tenant owners to switch the active tenant from the header`
+        - `feat(booking): let guests view availability without an account`
+        - `feat(settings): allow tenant admins to invite staff by email`
+
+        Prohibited in any title:
+
+        - `+` as shorthand. Use `and` or commas.
+        - User-story prose. Place that content in the Problem Statement field.
+
+        ## Voice and structure
+
+        The body uses the organization's formal section vocabulary. The Summary, Target User, and Business Context sections inform product and design before engineering review.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One sentence in plain language. Avoid implementation terms.
+      placeholder: "Tenant owners can switch the active tenant from the page header without signing out."
+    validations:
+      required: true
+
+  - type: textarea
+    id: target_user
+    attributes:
+      label: Target User
+      description: The persona, role, or tier the feature serves. Be specific.
+      placeholder: |
+        - Persona: tenant OWNER managing more than one tenant
+        - Tier: any paid plan
+        - Frequency: daily for power users, weekly for the long tail
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: Background
+      description: The tenant outcome and the business outcome. Prior state and rationale.
+      placeholder: |
+        - Tenant outcome: one click to switch tenant instead of three clicks and a re-authentication
+        - Business outcome: reduced "stuck on the wrong tenant" support tickets
+        - Rationale: the multi-tenant tier launch expects multi-tenant ergonomics
+    validations:
+      required: true
+
+  - type: textarea
+    id: success_metrics
+    attributes:
+      label: Success Metrics
+      description: Measurable indicators. Select at most three. Distinguish leading from lagging metrics.
+      placeholder: |
+        - Leading: switch-tenant action used by 60% of multi-tenant owners within 30 days
+        - Lagging: "wrong tenant" support tickets fall below five per month
+        - Quality: zero actions applied to the wrong tenant
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: Problem Statement
+      description: The tenant problem the feature addresses. Avoid jumping to a solution. User-story prose belongs in this section.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: One paragraph plus a sketch of the API or user experience where relevant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Verifiable conditions in Given / When / Then form.
+      placeholder: |
+        - [ ] Given a tenant owner, when they select another tenant in the header, then the active context switches without re-authentication
+        - [ ] Feature is reachable from the header on every authenticated page
+        - [ ] Free-plan tenants see the upgrade prompt instead of the control
+    validations:
+      required: true
+
+  - type: textarea
+    id: exclusions
+    attributes:
+      label: Exclusions
+      description: Work deliberately omitted. Tracked separately where applicable.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Other approaches evaluated and the reasoning for rejection.
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Specification sections, related issues, prior art, design files.

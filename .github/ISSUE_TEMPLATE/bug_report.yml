@@ -1,0 +1,133 @@
+name: Bug Report
+description: Defect in shipped code
+title: "fix(<scope>): <one-line symptom>"
+labels: ["type:fix"]
+assignees: ["joetakara", "nextfridaydeveloper"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Title style — Hybrid Convention
+
+        Bug issues use the `fix` type and describe the observable symptom in one line: `fix(<scope>): <symptom>`.
+
+        Examples:
+
+        - `fix(auth): session persists after sign-out`
+        - `fix(billing): tenant switch does not refresh the active context`
+        - `fix(api): export endpoint omits the tenant isolation check`
+
+        Prohibited in any title:
+
+        - `+` as shorthand. Use `and` or commas.
+
+        ## Voice and structure
+
+        The body uses the organization's formal section vocabulary. The Summary and Customer Impact sections inform support and product owners; engineering detail follows.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One sentence describing the symptom in plain language. No file paths or stack traces in this section.
+      placeholder: "Tenants who sign out are returned to a cached version of a protected page instead of the sign-in screen."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - SEV-1 (data loss, security, or full outage)
+        - SEV-2 (major feature broken, many tenants affected)
+        - SEV-3 (single tenant or minor feature affected)
+        - SEV-4 (cosmetic or non-blocking)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - local
+        - dev
+        - uat
+        - prod
+    validations:
+      required: true
+
+  - type: textarea
+    id: customer_impact
+    attributes:
+      label: Customer Impact
+      description: Who is affected, the magnitude of the impact, and the business consequence. Support and product owners use this section to determine communication and priority.
+      placeholder: |
+        - Affected tenants: identifiers, roles, or tiers (for example, "all OWNER users" or "tenants on the Free plan")
+        - User-facing symptom: the observable result (error toast, missing data, broken redirect, blank page)
+        - Business consequence: lost bookings, blocked signup, support tickets opened, revenue at risk
+    validations:
+      required: true
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround
+      description: The action a tenant can take while the fix is in progress. State "None" explicitly when none exists.
+      placeholder: |
+        - Step one
+        - Step two
+        - Or: "None — affected tenants are blocked until the fix is deployed."
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: Background
+      description: One paragraph describing what happened from an engineering perspective.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Steps
+      placeholder: |
+        1. Visit `/...`
+        2. Click `...`
+        3. Observe `...`
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: Include error messages, request identifiers, stack traces, console output, or screenshots.
+    validations:
+      required: true
+
+  - type: textarea
+    id: blast_radius
+    attributes:
+      label: Blast Radius
+      placeholder: |
+        - First observed at (UTC):
+        - Frequency: always, intermittent, or one-off
+        - Versions or commits affected:
+        - Environments, browsers, or devices affected:
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Related issues, specification sections, deployment URLs, and observability links.

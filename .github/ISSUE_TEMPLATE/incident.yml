@@ -1,0 +1,124 @@
+name: Production Incident
+description: Production incident or outage
+title: "fix(<area>): <what broke, where, since when>"
+labels: ["type:incident", "priority:high"]
+assignees: ["joetakara", "nextfridaydeveloper"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Title style — Hybrid Convention
+
+        Incident issues use the `fix` type and describe what broke, where, and since when in one line: `fix(<area>): <symptom>`.
+
+        Examples:
+
+        - `fix(prod): 5xx rate above 1% on the booking API since 14:00 UTC`
+        - `fix(auth-prod): sign-in returns 500 since deploy 76e0b7b`
+        - `fix(prod): tenant notifications not delivered since 09:00 UTC`
+
+        Prohibited in any title:
+
+        - `+` as shorthand. Use `and` or commas.
+
+        ## Voice and structure
+
+        The body uses the organization's formal section vocabulary. The Severity, Environment, and Summary sections inform the on-call and incident commander.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - SEV-1 (full outage, data loss, or security breach)
+        - SEV-2 (major feature broken, many tenants affected)
+        - SEV-3 (single tenant or surface affected, workaround exists)
+        - SEV-4 (cosmetic or non-blocking)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - prod
+        - uat
+        - dev
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      placeholder: "What broke, observed when, scope at first observation."
+    validations:
+      required: true
+
+  - type: textarea
+    id: blast_radius
+    attributes:
+      label: Blast Radius
+      placeholder: |
+        - Affected tenants:
+        - Affected features or services:
+        - First observed at (UTC):
+        - Deployment correlation: commit SHA or deployment identifier
+    validations:
+      required: true
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Timeline
+      placeholder: |
+        - HH:MM detected via ...
+        - HH:MM mitigation started ...
+        - HH:MM resolved ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: mitigation
+    attributes:
+      label: Mitigation Applied
+      description: Describe the action taken (rollback, hotfix deploy, feature flag flip, cache purge, and similar).
+    validations:
+      required: true
+
+  - type: textarea
+    id: root_cause
+    attributes:
+      label: Suspected Root Cause
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: invariant_check
+    attributes:
+      label: Architecture Invariants Affected
+      options:
+        - label: Tenant isolation
+        - label: Authentication and session integrity
+        - label: Payment or billing integrity
+        - label: Booking or core workflow availability
+        - label: Notification delivery
+        - label: Data integrity
+        - label: Build and deploy pipeline integrity
+
+  - type: textarea
+    id: post_mortem
+    attributes:
+      label: Post-Mortem Owner
+      description: Named owner responsible for the post-mortem and the follow-up items below.
+
+  - type: textarea
+    id: followup
+    attributes:
+      label: Required Follow-Up
+      placeholder: |
+        - Post-mortem document link:
+        - Runbook update needed:
+        - Tests added (unit, e2e):
+        - Monitoring or alert added:
