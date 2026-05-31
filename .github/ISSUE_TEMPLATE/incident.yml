@@ -101,7 +101,6 @@ body:
       options:
         - label: Tenant isolation
         - label: Authentication and session integrity
-        - label: Payment or billing integrity
         - label: Booking or core workflow availability
         - label: Notification delivery
         - label: Data integrity

@@ -14,7 +14,7 @@ body:
         Examples:
 
         - `fix(auth): session persists after sign-out`
-        - `fix(billing): tenant switch does not refresh the active context`
+        - `fix(auth): session does not refresh after a tenant switch`
         - `fix(api): export endpoint omits the tenant isolation check`
 
         Prohibited in any title:
@@ -66,7 +66,7 @@ body:
       placeholder: |
         - Affected tenants: identifiers or roles (for example, "all owners" or "a single tenant")
         - User-facing symptom: the observable result (error toast, missing data, broken redirect, blank page)
-        - Business consequence: lost bookings, blocked signup, support tickets opened, revenue at risk
+        - Business consequence: lost bookings, blocked signup, support tickets opened
     validations:
       required: true
 

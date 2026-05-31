@@ -13,7 +13,7 @@ body:
 
         Examples:
 
-        - `feat(billing): allow tenant owners to switch the active tenant from the header`
+        - `feat(settings): allow tenant owners to switch the active tenant from the header`
         - `feat(booking): let guests view availability without an account`
         - `feat(settings): allow tenant admins to invite staff by email`
 

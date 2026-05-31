@@ -14,7 +14,7 @@ body:
         Examples:
 
         - `feat(onboarding): add a tenant onboarding checklist`
-        - `refactor(billing): extract tenant billing state validation`
+        - `refactor(api): extract tenant context resolution`
         - `ci(github): validate pull request title issue references`
         - `docs(governance): document the tenant data retention policy`
 
