@@ -1,0 +1,120 @@
+name: Reusable Pull Request Validation
+
+on:
+  workflow_call:
+
+jobs:
+  title:
+    name: Validate pull request title
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    if: ${{ github.event.pull_request.draft == false && github.event.pull_request.user.type != 'Bot' }}
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - uses: lanlada/.github/.github/common-actions/bootstrap@main
+      - name: Validate PR title format
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: echo "$PR_TITLE" | pnpm exec commitlint
+
+  title-references:
+    name: Validate title references closed issues
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    if: ${{ github.event.pull_request.draft == false && github.event.pull_request.user.type != 'Bot' }}
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: lanlada/.github
+          ref: main
+          persist-credentials: false
+      - name: Title carries no issue ref and body closes at least one
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: bash .github/scripts/check-pr-title-references.sh
+
+  title-sync:
+    name: Sync status:needs-pr-title-fix label
+    needs: [title, title-references]
+    if: ${{ always() && github.event.pull_request.draft == false && github.event.pull_request.user.type != 'Bot' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Add or remove status:needs-pr-title-fix based on title checks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          TITLE_RESULT: ${{ needs.title.result }}
+          REFS_RESULT: ${{ needs.title-references.result }}
+        run: |
+          if [ "$TITLE_RESULT" = "success" ] && [ "$REFS_RESULT" = "success" ]; then
+            gh pr edit "$PR" --repo "$REPO" --remove-label "status:needs-pr-title-fix" 2>/dev/null || true
+          else
+            gh pr edit "$PR" --repo "$REPO" --add-label "status:needs-pr-title-fix"
+          fi
+
+  pairing:
+    name: Validate base and head branch pairing
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: lanlada/.github
+          ref: main
+          persist-credentials: false
+      - name: Enforce promotion path
+        env:
+          HEAD: ${{ github.head_ref }}
+          BASE: ${{ github.base_ref }}
+        run: bash .github/scripts/check-pr-pairing.sh "$BASE" "$HEAD"
+
+  issue-exists:
+    name: Branch points at a real open issue
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    if: ${{ github.event.pull_request.draft == false && github.event.pull_request.user.type != 'Bot' }}
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: lanlada/.github
+          ref: main
+          persist-credentials: false
+      - name: Verify the branch-number issue exists and is open
+        env:
+          HEAD: ${{ github.head_ref }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: bash .github/scripts/check-pr-issue-exists.sh
+
+  label:
+    name: Apply path-based labels
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/labeler@f27b608878404679385c85cfa523b85ccb86e213
+        with:
+          configuration-path: .github/labeler.yml

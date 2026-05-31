@@ -1,0 +1,23 @@
+name: Reusable Software Composition Analysis
+
+on:
+  workflow_call:
+
+jobs:
+  scan:
+    name: OSV-Scanner dependency scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.draft == false }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Run OSV-Scanner
+        uses: google/osv-scanner-action/osv-scanner-action@b8ac13f90f0ad78cebdcdbe5d39fcc8ff11301ba
+        with:
+          scan-args: |-
+            --recursive
+            ./

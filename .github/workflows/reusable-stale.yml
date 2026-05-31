@@ -1,0 +1,30 @@
+name: Reusable Stale
+
+on:
+  workflow_call:
+
+jobs:
+  stale:
+    name: Mark stale issues and PRs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/stale@eb5cf3af3ac0a1aa4c9c45633dd1ae542a27a899
+        with:
+          stale-issue-label: "status:stale"
+          stale-pr-label: "status:stale"
+          days-before-issue-stale: 30
+          days-before-pr-stale: 14
+          days-before-issue-close: 7
+          days-before-pr-close: 7
+          stale-issue-message: >
+            This issue has been inactive for 30 days and will be closed in 7 days unless there is activity.
+          stale-pr-message: >
+            This PR has been inactive for 14 days and will be closed in 7 days unless there is activity.
+          close-issue-message: Closed due to inactivity.
+          close-pr-message: Closed due to inactivity.
+          exempt-issue-labels: "type:incident,priority:high,status:blocked"
+          exempt-pr-labels: "priority:high,status:blocked"
